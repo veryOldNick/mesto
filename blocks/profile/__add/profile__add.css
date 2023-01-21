@@ -1,4 +1,4 @@
-.profile_add {
+.profile__add {
   background-image: url('../../../images/addCross.png');
   background-repeat: no-repeat;
   background-position: center;
@@ -13,12 +13,12 @@
   justify-self: end;
 }
 
-.profile_add:hover {
+.profile__add:hover {
   opacity: 0.6;
 }
 
 @media screen and (max-width: 600px) {
-  .profile_add {
+  .profile__add {
     width: 282px;
     margin: 36px auto;
   }
