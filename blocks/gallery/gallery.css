@@ -1,0 +1,11 @@
+.gallery {
+  width: 73%;
+  margin: 40px auto 0;
+}
+
+@media screen and (max-width: 600px) {
+  .gallery {
+    margin: 0 auto;
+    width: 88%;
+  }
+}

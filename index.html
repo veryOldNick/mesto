@@ -4,9 +4,91 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <meta name="description" content="Учебный проект №4. Mesto: базовая функциональность">
+  <meta name="keywords" content="html, css, javascript">
+  <meta name="author" content="Krasa Nikolai">
+  <link rel="stylesheet" href="./pages/index.css">
+  <title>Mesto</title>
 </head>
-<body>
-  
+<body class="page">
+  <header class="header">
+    <img src="./images/Vector.png" alt="logotype" class="header__logo">
+  </header>
+  <main class="content">
+    <section class="profile">
+      <div class="profile__card">
+        <img src="./images/kusto.jpg" alt="member's photo" class="profile__photo">
+        <article class="profile__info">
+          <h2 class="profile__title">Жак-Ив Кусто</h2>
+          <button class="profile_edit" type="button"></button>
+          <p class="profile__describle">Исследователь океана</p>
+        </article>      
+      </div>
+      <button class="profile_add" type="button"></button>
+    </section>
+    <section class="gallery">
+      <ul class="gallery__list">
+        <li class="gallery__item">
+          <img class="gallery__pic" src="./images/dombay.png" alt="изображение карточки">
+          <div class="gallery__discrable">
+            <p class="gallery__name">Карачаевск</p>
+            <button class="gallery__like" type="button"></button>
+          </div>
+        </li>
+        <li class="gallery__item">
+          <img class="gallery__pic" src="./images/elbrus.png" alt="изображение карточки">
+          <div class="gallery__discrable">
+            <p class="gallery__name">Гора Эльбрус</p>
+            <button class="gallery__like" type="button"></button>
+          </div>
+        </li>
+        <li class="gallery__item">
+          <img class="gallery__pic" src="./images/karacayevsk.jpg" alt="изображение карточки">
+          <div class="gallery__discrable">
+            <p class="gallery__name">Домбай</p>
+            <button class="gallery__like" type="button"></button>
+          </div>
+        </li>
+        <li class="gallery__item">
+          <img class="gallery__pic" src="./images/dombay2.png" alt="изображение карточки">
+          <div class="gallery__discrable">
+            <p class="gallery__name">Гора Эльбрус</p>
+            <button class="gallery__like" type="button"></button>
+          </div>
+        </li>
+        <li class="gallery__item">
+          <img class="gallery__pic" src="./images/elbrus2.png" alt="изображение карточки">
+          <div class="gallery__discrable">
+            <p class="gallery__name">Домбай</p>
+            <button class="gallery__like" type="button"></button>
+          </div>
+        </li>
+        <li class="gallery__item">
+          <img class="gallery__pic" src="./images/kchr.png" alt="изображение карточки">
+          <div class="gallery__discrable">
+            <p class="gallery__name">Карачаево-Черкесия</p>
+            <button class="gallery__like" type="button"></button>
+          </div>
+        </li>    
+      </ul>
+    </section>
+  </main>
+  <footer class="footer">
+    <p class="footer__copyright">© 2020 Mesto Russia</p>
+  </footer>
+
+  <div class="popup popup__profile">
+    <div class="popup__container">
+      <button class="popup__closeform-button" type="button"></button>
+      <form class="popup__form" name="profile" novalidate>
+        <h2 class="popup__head">Редактировать профиль</h2>
+        <input class="popup__input popup__input-name" type="text" placeholder="Жак-ив Кусто" id="profile-name" name="name" minlength="2" maxlength="40">
+        <input class="popup__input popup__input-job" type="text" placeholder="Исследователь океана" id="profile-job" name="job" minlength="2" maxlength="200">
+        <button class="popup__button-save" type="submit">Сохранить</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="scripts/index.js"></script>
 </body>
 </html>

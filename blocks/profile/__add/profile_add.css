@@ -1,0 +1,25 @@
+.profile_add {
+  background-image: url('../../../images/addCross.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 150px;
+  height: 50px;
+  cursor: pointer;
+  background-color: #2a2c2f;
+  border: 2px solid white;
+  padding: 0;
+  border-radius: 2px;
+  align-self: center;
+  justify-self: end;
+}
+
+.profile_add:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 600px) {
+  .profile_add {
+    width: 282px;
+    margin: 36px auto;
+  }
+}
