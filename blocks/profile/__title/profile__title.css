@@ -6,12 +6,18 @@
   line-height: 48px;  
 }
 
+@media screen and (max-width: 870px) {
+  .profile__title {
+    font-size: 34px;
+    line-height: 40px;
+    margin: 22px auto 0 0;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .profile__title {
-    font-weight: 500;
     font-size: 27px;
     line-height: 33px;
-    margin: 0 auto;
-    margin-top: 22px;
+    margin: 22px auto 0 0;
   }
 }

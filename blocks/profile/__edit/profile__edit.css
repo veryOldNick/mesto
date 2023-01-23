@@ -1,22 +1,21 @@
 .profile__edit {
-  margin: 0;
+  margin: 0 0 0 18px;
   padding: 0;
-  margin-left: 18px;
-  background-image: url('../../../images/editButton.png');
+  background-image: url('../../../images/pen.svg');
   cursor: pointer;
   background-repeat: no-repeat;
   background-position: center;
-  object-fit: cover;
-  background-color: #2a2c2f;
-  border-style: none;
+  background-color: transparent;
+  background-size: 10px 10px;
+  border: 1px solid white;
   opacity: 1;
   width: 24px;
   height: 24px;
+  transition: .5s;
 }
 
 .profile__edit:hover {
   cursor: pointer;
-  transition: .5s;
   opacity: 0.6;
 }
 
@@ -24,5 +23,6 @@
   .profile__edit {
     margin-left: 10px;
     margin-top: 22px;
+    background-size: 7.5px 7.5px;
   }
 }

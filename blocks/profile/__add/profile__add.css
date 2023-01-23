@@ -1,11 +1,12 @@
 .profile__add {
-  background-image: url('../../../images/addCross.png');
+  background-image: url('../../../images/addCross.svg');
   background-repeat: no-repeat;
   background-position: center;
+  background-size: 22px 22px;
   width: 150px;
   height: 50px;
   cursor: pointer;
-  background-color: #2a2c2f;
+  background-color: transparent;
   border: 2px solid white;
   padding: 0;
   border-radius: 2px;
@@ -21,5 +22,6 @@
   .profile__add {
     width: 282px;
     margin: 36px auto;
+    background-size: 16px 16px;
   }
 }
