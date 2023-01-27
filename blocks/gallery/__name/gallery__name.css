@@ -7,6 +7,12 @@
   white-space: nowrap;
   overflow: hidden;
   max-width: 200px;
-  margin: 0 auto 31px 21px;
+  margin: 0 auto 25px 21px;
   padding: 0;  
+}
+
+@media screen and (max-width: 600px) {
+  .gallery__name {
+    margin-left: 20px;
+  }
 }

@@ -18,10 +18,10 @@
   opacity: 0.6;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 820px) {
   .profile__add {
     width: 282px;
-    margin: 36px auto;
+    margin: 12px auto 0;
     background-size: 16px 16px;
   }
 }

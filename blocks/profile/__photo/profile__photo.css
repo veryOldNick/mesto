@@ -5,3 +5,9 @@
   width: 120px;
   object-fit: cover;
 }
+
+@media screen and (max-width: 600px) {
+  .profile__photo {
+    margin: 0 auto;
+  }
+}
