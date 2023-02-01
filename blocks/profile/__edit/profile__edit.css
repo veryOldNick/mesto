@@ -12,6 +12,7 @@
   transition: .5s;
   margin-left: 18px;
   margin-top: 7px;
+  box-sizing: border-box;
 }
 
 .profile__edit:hover {
