@@ -1,22 +1,24 @@
 .profile__info {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 auto 0 31px;
-  padding: 0;
-  align-items: center;
-  max-width: 392px;
-  min-width: 360px;
+  margin-left: 31px;
+  max-width: 340px;
+  margin-top: 16px;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 960px) {
   .profile__info {
     margin-left: 0;
+    text-align: center;
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 660px) {
   .profile__info {
-    max-width: 250px;
-    min-width: 240px;
+    max-width: 300px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .profile__info {
+    max-width: 282px;
   }
 }

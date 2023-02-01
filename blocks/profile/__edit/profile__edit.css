@@ -1,6 +1,4 @@
 .profile__edit {
-  margin: 0 10px 0 3px;
-  padding: 0;
   background-image: url('../../../images/pen.svg');
   cursor: pointer;
   background-repeat: no-repeat;
@@ -12,6 +10,8 @@
   width: 24px;
   height: 24px;
   transition: .5s;
+  margin-left: 18px;
+  margin-top: 7px;
 }
 
 .profile__edit:hover {
@@ -21,7 +21,7 @@
 
 @media screen and (max-width: 960px) {
   .profile__edit {
-    margin: 22px auto 0 10px;
+    margin-left: 10px;
     width: 18px;
     height: 18px;
     background-size: 7.5px 7.5px;

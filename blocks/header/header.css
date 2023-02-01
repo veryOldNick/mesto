@@ -1,13 +1,12 @@
 .header {
   margin: 50px auto 0;
   border-bottom: 1px solid rgb(84 84 84 / 70%);
-  width: 69%;
+  width: 70%;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 660px) {
   .header {
     margin-top: 28px;
-    margin-bottom: 38px;
     width: 100%;
   }
 }

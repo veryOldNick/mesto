@@ -12,6 +12,8 @@
   border-radius: 2px;
   align-self: center;
   justify-self: end;
+  margin-right: 14px;
+  margin-top: 20px;
 }
 
 .profile__add:hover {
@@ -21,7 +23,7 @@
 @media screen and (max-width: 960px) {
   .profile__add {
     width: 282px;
-    margin: 12px auto 0;
+    margin: 32px auto 0;
     background-size: 16px 16px;
   }
 }

@@ -19,8 +19,10 @@
       <div class="profile__card">
         <img src="./images/kusto.jpg" alt="Жак-ив Кусто" class="profile__photo">
         <div class="profile__info">
-          <h1 class="profile__title">Жак-Ив Кусто</h1>
-          <button class="profile__edit" type="button"></button>
+          <div class="profile__name">
+            <h1 class="profile__title">Жак-Ив Кусто</h1>
+            <button class="profile__edit" type="button"></button>
+          </div>
           <p class="profile__describle">Исследователь океана</p>
         </div>      
       </div>
@@ -82,8 +84,8 @@
       <button class="popup__close-button" type="button"></button>
       <form class="popup__form" name="profile" novalidate>
         <h2 class="popup__head">Редактировать профиль</h2>
-        <input class="popup__input popup__input_form_name" type="text" placeholder="Жак-ив Кусто" id="profile-name" name="name" minlength="2" maxlength="40">
-        <input class="popup__input popup__input_form_job" type="text" placeholder="Исследователь океана" id="profile-job" name="job" minlength="2" maxlength="200">
+        <input class="popup__input popup__input_form_name" type="text" placeholder="Жак-ив Кусто">
+        <input class="popup__input popup__input_form_job" type="text" placeholder="Исследователь океана">
         <button class="popup__button-save" type="submit">Сохранить</button>
       </form>
     </div>
