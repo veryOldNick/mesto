@@ -7,7 +7,7 @@
   background-size: 10px 10px;
   border: 1px solid white;
   opacity: 1;
-  width: 24px;
+  min-width: 24px;
   height: 24px;
   transition: .5s;
   margin-left: 18px;
@@ -23,8 +23,8 @@
 
 @media screen and (max-width: 960px) {
   .profile__edit {
-    margin-left: 10px;
-    width: 18px;
+    margin-left: 11px;
+    min-width: 18px;
     height: 18px;
     background-size: 7.5px 7.5px;
   }
