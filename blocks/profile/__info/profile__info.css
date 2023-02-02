@@ -13,12 +13,13 @@
 
 @media screen and (max-width: 660px) {
   .profile__info {
-    max-width: 300px;
+    max-width: 320px;
   }
 }
 
 @media screen and (max-width: 450px) {
   .profile__info {
     max-width: 282px;
+    min-width: 250px;
   }
 }

@@ -13,6 +13,7 @@
   margin-left: 18px;
   margin-top: 7px;
   box-sizing: border-box;
+  padding: 0;
 }
 
 .profile__edit:hover {
