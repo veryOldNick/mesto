@@ -27,7 +27,9 @@
 @import url(../blocks/gallery/__pic/gallery__pic.css);
 @import url(../blocks/gallery/__name/gallery__name.css);
 @import url(../blocks/gallery/__like/gallery__like.css);
+@import url(../blocks/gallery/__like/_on/gallery__like_on.css);
 @import url(../blocks/gallery/__discrable/gallery__discrable.css);
+@import url(../blocks/gallery/__remove/gallery__remove.css);
 
 /* footer */
 @import url(../blocks/footer/footer.css);

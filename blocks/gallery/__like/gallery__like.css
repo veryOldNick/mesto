@@ -10,9 +10,9 @@
   height: 19px;
   margin-top: 5px;
   margin-right: 20px;
+  transition: 0.5s;
 } 
 
 .gallery__like:hover {
   opacity: 0.5;
-  transition: 0.5s;
 }
