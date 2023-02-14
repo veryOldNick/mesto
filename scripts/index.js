@@ -113,25 +113,26 @@ const createItem = ({name, link}) => {
   const like = item.querySelector('.gallery__like');
   const remove = item.querySelector('.gallery__remove');
 
+
   itemImg.src = link;
   itemImg.alt = name;
   itemTitle.textContent = name;
   gallery.prepend(item);
 
-  like.addEventListener('click', () => { like.classList.toggle('gallery__like_on');});
-  remove.addEventListener('click', (evt) => { evt.target.closest('.gallery__item').remove();});
+
+  const popupOpenPhoto = () => {popupImageOpen.classList.add('popup_opened');};
+  const openImage = () => {
+    popupOpenPhoto();
+    popupImage.src = link;
+    popupImage.alt = name;
+    popupImageCaption.textContent = name;
+  };
+
+
+  like.addEventListener('click', () => {like.classList.toggle('gallery__like_on');});
+  remove.addEventListener('click', (evt) => {evt.target.closest('.gallery__item').remove();});
+  itemImg.addEventListener('click', openImage);
+
 }
 
 const addItem = initialCards.forEach((name, link) => { createItem(name, link);});
-
-// открытие попапа с картинкой нереализовано
-const popupImg = document.querySelector('#popup__img');
-const galleryItem = document.querySelector('.gallery__item');
-
-
-/* открыть popup */
-const openPopupImg = () => { popupImg.classList.add('popup_opened');};
-
-
-// открыть popup
-galleryItem.addEventListener('click', openPopupImg);
