@@ -42,10 +42,8 @@ const popupAddButton = document.querySelector('.profile__add');
 const closeButtonSight = popupAddNewSight.querySelector('.popup__close-button');
 const createButtonSight = popupAddNewSight.querySelector('.popup__button-save');
 
-
 let placeInput = popupAddNewSight.querySelector(".popup__input_form_place");
 let linkInput = popupAddNewSight.querySelector(".popup__input_form_link");
-
 
 const openButtonSight = () => {popupAddNewSight.classList.add('popup_opened');};
 const closeSight = () => { popupAddNewSight.classList.remove('popup_opened');};
@@ -112,13 +110,13 @@ const createItem = ({name, link}) => {
   const itemTitle = item.querySelector('.gallery__name');
   const like = item.querySelector('.gallery__like');
   const remove = item.querySelector('.gallery__remove');
+  const closeButtonImg = popupImageOpen.querySelector('.popup__close-button');
 
 
   itemImg.src = link;
   itemImg.alt = name;
   itemTitle.textContent = name;
   gallery.prepend(item);
-
 
   const popupOpenPhoto = () => {popupImageOpen.classList.add('popup_opened');};
   const openImage = () => {
@@ -128,11 +126,10 @@ const createItem = ({name, link}) => {
     popupImageCaption.textContent = name;
   };
 
-
   like.addEventListener('click', () => {like.classList.toggle('gallery__like_on');});
   remove.addEventListener('click', (evt) => {evt.target.closest('.gallery__item').remove();});
   itemImg.addEventListener('click', openImage);
-
+  closeButtonImg.addEventListener('click', () => { popupImageOpen.classList.remove('popup_opened');});
 }
 
 const addItem = initialCards.forEach((name, link) => { createItem(name, link);});
