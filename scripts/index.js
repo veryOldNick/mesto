@@ -1,76 +1,3 @@
-/* popup редактирования профиля */
-const popupElement = document.querySelector('#popup__profile');
-const popupOpenButton = document.querySelector('.profile__edit');
-const popupCloseButton = popupElement.querySelector('.popup__close-button');
-const popupSaveForm = popupElement.querySelector("#profile_form");
-
-let userName = document.querySelector('.popup__input_form_name');
-let jobType = document.querySelector('.popup__input_form_job');
-let userInputTitle = document.querySelector('.profile__title');
-let jobInputSubtitle = document.querySelector('.profile__describle');
-
-/* функция заполнения формы действующими значениями профиля */
-const checkProfile = () => {
-  userName.value = userInputTitle.textContent;
-  jobType.value = jobInputSubtitle.textContent;
-}
-
-/* функция заполнения профиля данными из формы */
-const fillProfile = () => {
-  userInputTitle.textContent = userName.value;
-  jobInputSubtitle.textContent = jobType.value;
-}
-
-/* открыть popup */
-const openPopup = () => { popupElement.classList.add('popup_opened');}
-/* закрыть popup */
-const closePopup = () => { popupElement.classList.remove('popup_opened');}
-/* обработчик нажатия на кнопку - edit */
-const editButton = () => { checkProfile(); openPopup();}
-/* обработчик нажатия на кнопку - Сохранить */
-const saveButton = (evt) => { evt.preventDefault(); fillProfile(); closePopup();}
-
-/* активация */
-popupOpenButton.addEventListener('click', editButton);
-popupCloseButton.addEventListener('click', closePopup);
-popupSaveForm.addEventListener('submit', saveButton);
-
-
-/* Добавить карточку через popup */
-const popupAddNewSight = document.querySelector("#popup__sight");
-const popupAddButton = document.querySelector('.profile__add');
-const closeButtonSight = popupAddNewSight.querySelector('.popup__close-button');
-const createButtonSight = popupAddNewSight.querySelector('.popup__button-save');
-
-let placeInput = popupAddNewSight.querySelector(".popup__input_form_place");
-let linkInput = popupAddNewSight.querySelector(".popup__input_form_link");
-
-const openButtonSight = () => {popupAddNewSight.classList.add('popup_opened');};
-const closeSight = () => { popupAddNewSight.classList.remove('popup_opened');};
-const AddSight = (evt) => {
-  evt.preventDefault();
-
-  const addPhoto = {  
-    name: placeInput.value,
-    link: linkInput.value
-  };
-
-  createItem(addPhoto);
-  closeSight ();
-
-  placeInput.value = '';
-  linkInput.value = '';  
-};
-
-// открыть popup
-popupAddButton.addEventListener('click', openButtonSight);
-// кнопка закрыть
-closeButtonSight.addEventListener('click', closeSight);
-// кнопка создать
-createButtonSight.addEventListener('click', AddSight);
-
-
-/* Galery */
 const initialCards = [
   {
     name: 'Архыз',
@@ -98,19 +25,88 @@ const initialCards = [
   }
 ];
 
+const profilePopup = document.querySelector('#popup__profile');
+const popupProfileOpenButton = document.querySelector('.profile__edit');
+const popupProfileCloseButton = profilePopup.querySelector('.popup__close-button');
+const popupProfileSaveForm = profilePopup.querySelector("#profile_form");
+const userName = document.querySelector('.popup__input_form_name');
+const jobType = document.querySelector('.popup__input_form_job');
+const userInputTitle = document.querySelector('.profile__title');
+const jobInputSubtitle = document.querySelector('.profile__describle');
+
+const popupAddNewSight = document.querySelector("#popup__sight");
+const popupAddNewSightForm = popupAddNewSight.querySelector(".popup__form");
+const addNewSightOpenButton = document.querySelector('.profile__add');
+const closeButtonSight = popupAddNewSight.querySelector('.popup__close-button');
+const createButtonSight = popupAddNewSight.querySelector('.popup__button-save');
+const placeInput = popupAddNewSight.querySelector(".popup__input_form_place");
+const linkInput = popupAddNewSight.querySelector(".popup__input_form_link");
+
 const template = document.querySelector('#item-template').content;
 const gallery = document.querySelector('.gallery__list');
-const popupImageOpen = document.querySelector('#popup__img');
-const popupImage = popupImageOpen.querySelector('.popup__image');
-const popupImageCaption = popupImageOpen.querySelector('.popup__caption');
+const popupOpenImage = document.querySelector('#popup__img');
+const popupImage = popupOpenImage.querySelector('.popup__image');
+const popupImageCaption = popupOpenImage.querySelector('.popup__caption');
+const closeButtonImageOpen = popupOpenImage.querySelector('.popup__close-button');
 
+
+/* popup редактирования профиля */
+/* функция заполнения формы действующими значениями профиля */
+const fillFormFromProfile = () => {
+  userName.value = userInputTitle.textContent;
+  jobType.value = jobInputSubtitle.textContent;
+}
+
+/* функция заполнения профиля данными из формы */
+const fillProfileFromForm = () => {
+  userInputTitle.textContent = userName.value;
+  jobInputSubtitle.textContent = jobType.value;
+}
+
+/* открыть popup */
+const openPopup = (popup) => { popup.classList.add('popup_opened');}
+/* закрыть popup */
+const closePopup = (popup) => { popup.classList.remove('popup_opened');}
+/* обработчик нажатия на кнопку - edit */
+const popupProfileEditButton = () => { fillFormFromProfile(); openPopup(profilePopup);}
+/* обработчик нажатия на кнопку - Сохранить */
+const popupProfileSaveButton = (evt) => { evt.preventDefault(); fillProfileFromForm(); closePopup(profilePopup);}
+
+/* активация */
+popupProfileOpenButton.addEventListener('click', popupProfileEditButton);
+popupProfileCloseButton.addEventListener('click', () => closePopup(profilePopup));
+popupProfileSaveForm.addEventListener('submit', popupProfileSaveButton);
+
+
+/* Добавить карточку через popup */
+const addSight = (evt) => {
+  evt.preventDefault();
+  
+  const addPhoto = {  
+    name: placeInput.value,
+    link: linkInput.value
+  };
+
+  createItem(addPhoto);
+  closePopup(popupAddNewSight);
+  popupAddNewSightForm.reset();
+};
+
+// открыть popup
+addNewSightOpenButton.addEventListener('click', () => openPopup(popupAddNewSight));
+// кнопка закрыть
+closeButtonSight.addEventListener('click', () => closePopup(popupAddNewSight));
+// кнопка создать
+createButtonSight.addEventListener('click', addSight);
+
+
+/* Galery */
 const createItem = ({name, link}) => {
   const item = template.querySelector('.gallery__item').cloneNode(true);
   const itemImg = item.querySelector('.gallery__pic');
   const itemTitle = item.querySelector('.gallery__name');
   const like = item.querySelector('.gallery__like');
   const remove = item.querySelector('.gallery__remove');
-  const closeButtonImg = popupImageOpen.querySelector('.popup__close-button');
 
 
   itemImg.src = link;
@@ -118,9 +114,8 @@ const createItem = ({name, link}) => {
   itemTitle.textContent = name;
   gallery.prepend(item);
 
-  const popupOpenPhoto = () => {popupImageOpen.classList.add('popup_opened');};
   const openImage = () => {
-    popupOpenPhoto();
+    openPopup(popupOpenImage);
     popupImage.src = link;
     popupImage.alt = name;
     popupImageCaption.textContent = name;
@@ -129,7 +124,9 @@ const createItem = ({name, link}) => {
   like.addEventListener('click', () => {like.classList.toggle('gallery__like_on');});
   remove.addEventListener('click', (evt) => {evt.target.closest('.gallery__item').remove();});
   itemImg.addEventListener('click', openImage);
-  closeButtonImg.addEventListener('click', () => { popupImageOpen.classList.remove('popup_opened');});
 }
 
-const addItem = initialCards.forEach((name, link) => { createItem(name, link);});
+// заполнить галерею
+initialCards.forEach(createItem);
+// закрыть попап просмотра фотографий
+closeButtonImageOpen.addEventListener('click', () => closePopup(popupOpenImage));
