@@ -82,12 +82,9 @@ popupProfileSaveForm.addEventListener('submit', popupProfileSaveButton);
 const addSight = (evt) => {
   evt.preventDefault();
   
-  const addPhoto = {  
-    name: placeInput.value,
-    link: linkInput.value
-  };
+  const card = createCard(placeInput.value, linkInput.value);
 
-  createItem(addPhoto);
+  addCardToGalery(card);
   closePopup(popupAddNewSight);
   popupAddNewSightForm.reset();
 };
@@ -101,7 +98,7 @@ createButtonSight.addEventListener('click', addSight);
 
 
 /* Galery */
-const createItem = ({name, link}) => {
+function createCard(name, link) {
   const item = template.querySelector('.gallery__item').cloneNode(true);
   const itemImg = item.querySelector('.gallery__pic');
   const itemTitle = item.querySelector('.gallery__name');
@@ -112,7 +109,6 @@ const createItem = ({name, link}) => {
   itemImg.src = link;
   itemImg.alt = name;
   itemTitle.textContent = name;
-  gallery.prepend(item);
 
   const openImage = () => {
     openPopup(popupOpenImage);
@@ -124,9 +120,12 @@ const createItem = ({name, link}) => {
   like.addEventListener('click', () => {like.classList.toggle('gallery__like_on');});
   remove.addEventListener('click', (evt) => {evt.target.closest('.gallery__item').remove();});
   itemImg.addEventListener('click', openImage);
+  return item;
 }
 
+const addCardToGalery = (card) => {gallery.prepend(card)};
+
 // заполнить галерею
-initialCards.forEach(createItem);
+initialCards.forEach(item => {addCardToGalery(createCard(item.name, item.link))});
 // закрыть попап просмотра фотографий
 closeButtonImageOpen.addEventListener('click', () => closePopup(popupOpenImage));
