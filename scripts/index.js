@@ -35,10 +35,9 @@ const userInputTitle = document.querySelector('.profile__title');
 const jobInputSubtitle = document.querySelector('.profile__describle');
 
 const popupAddNewSight = document.querySelector("#popup__sight");
-const popupAddNewSightForm = popupAddNewSight.querySelector(".popup__form");
-const addNewSightOpenButton = document.querySelector('.profile__add');
+const addNewSightForm = popupAddNewSight.querySelector(".popup__form");
+const openAddNewSightButton = document.querySelector('.profile__add');
 const closeButtonSight = popupAddNewSight.querySelector('.popup__close-button');
-const createButtonSight = popupAddNewSight.querySelector('.popup__button-save');
 const placeInput = popupAddNewSight.querySelector(".popup__input_form_place");
 const linkInput = popupAddNewSight.querySelector(".popup__input_form_link");
 
@@ -68,33 +67,31 @@ const openPopup = (popup) => { popup.classList.add('popup_opened');}
 /* закрыть popup */
 const closePopup = (popup) => { popup.classList.remove('popup_opened');}
 /* обработчик нажатия на кнопку - edit */
-const popupProfileEditButton = () => { fillFormFromProfile(); openPopup(profilePopup);}
+const editPopupProfileButton = () => { fillFormFromProfile(); openPopup(profilePopup);}
 /* обработчик нажатия на кнопку - Сохранить */
-const popupProfileSaveButton = (evt) => { evt.preventDefault(); fillProfileFromForm(); closePopup(profilePopup);}
+const submitProfileForm = (evt) => { evt.preventDefault(); fillProfileFromForm(); closePopup(profilePopup);}
 
 /* активация */
-popupProfileOpenButton.addEventListener('click', popupProfileEditButton);
+popupProfileOpenButton.addEventListener('click', editPopupProfileButton);
 popupProfileCloseButton.addEventListener('click', () => closePopup(profilePopup));
-popupProfileSaveForm.addEventListener('submit', popupProfileSaveButton);
+popupProfileSaveForm.addEventListener('submit', submitProfileForm);
 
 
 /* Добавить карточку через popup */
-const addSight = (evt) => {
-  evt.preventDefault();
-  
+const addNewCard = (evt) => {
+  evt.preventDefault();  
   const card = createCard(placeInput.value, linkInput.value);
-
   addCardToGalery(card);
   closePopup(popupAddNewSight);
-  popupAddNewSightForm.reset();
+  addNewSightForm.reset();
 };
 
-// открыть popup
-addNewSightOpenButton.addEventListener('click', () => openPopup(popupAddNewSight));
-// кнопка закрыть
+// кнопка открыть popup
+openAddNewSightButton.addEventListener('click', () => openPopup(popupAddNewSight));
+// кнопка закрыть popup
 closeButtonSight.addEventListener('click', () => closePopup(popupAddNewSight));
 // кнопка создать
-createButtonSight.addEventListener('click', addSight);
+addNewSightForm.addEventListener('submit', addNewCard);
 
 
 /* Galery */
@@ -121,7 +118,7 @@ function createCard(name, link) {
   remove.addEventListener('click', (evt) => {evt.target.closest('.gallery__item').remove();});
   itemImg.addEventListener('click', openImage);
   return item;
-}
+};
 
 const addCardToGalery = (card) => {gallery.prepend(card)};
 
