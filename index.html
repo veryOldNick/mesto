@@ -40,10 +40,14 @@
   <div class="popup" id="popup__profile">
     <div class="popup__container">
       <button class="popup__close-button" type="button" aria-label="Close"></button>
-      <form class="popup__form" id="profile_form" name="profile">
+      <form class="popup__form" id="profile_form" name="profile" novalidate>
         <h2 class="popup__head" id="profile_head">Редактировать профиль</h2>
-        <input class="popup__input popup__input_form_name" type="text" placeholder="Имя">
-        <input class="popup__input popup__input_form_job" type="text" placeholder="Проффесия">
+        <input class="popup__input popup__input_form_name" type="text" 
+          name="name" minlength="2" maxlength="40" placeholder="Имя" required>
+        <span></span>
+        <input class="popup__input popup__input_form_job" type="text" 
+          name="job" minlength="2" maxlength="200" placeholder="Проффесия" required>
+        <span></span>
         <button class="popup__button-save" type="submit" aria-label="Save">Сохранить</button>
       </form>
     </div>
@@ -52,10 +56,13 @@
   <div class="popup" id="popup__sight">
     <div class="popup__container">
       <button class="popup__close-button" type="button" aria-label="Close"></button>
-      <form class="popup__form popup__form_image" name="sight">
+      <form class="popup__form popup__form_image" name="sight" novalidate>
         <h2 class="popup__head popup__head_image">Новое место</h2>
-        <input class="popup__input popup__input_form_place" name='place' type="text" placeholder="Название">
-        <input class="popup__input popup__input_form_link" name='link' type="text" placeholder="Ссылка на картинку">
+        <input class="popup__input popup__input_form_place" name='place' 
+          minlength="1" maxlength="30" type="text" placeholder="Название" required>
+        <span></span>
+        <input class="popup__input popup__input_form_link" name='link' type="url" placeholder="Ссылка на картинку" required>
+        <span></span>
         <button class="popup__button-save" type="submit" aria-label="Create">Создать</button>
       </form>
     </div>
@@ -81,7 +88,8 @@
   </template>
   
   <script src="scripts/initialCards.js"></script>
-  <script src="scripts/index.js"></script>
   <script src="scripts/validate.js"></script>
+  <script src="scripts/index.js"></script>
+  
 </body>
 </html>
