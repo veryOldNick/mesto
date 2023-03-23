@@ -1,4 +1,4 @@
-.popup__submit-button_inactive {
+.popup__button_save_disabled {
   opacity: 0.2;
   border: 1px solid #000000;
   border-radius: 2px;
