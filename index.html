@@ -43,11 +43,11 @@
       <form class="popup__form" id="profile_form" name="profile" novalidate>
         <h2 class="popup__head" id="profile_head">Редактировать профиль</h2>
         <input class="popup__input popup__input_form_name" type="text" 
-          name="popup__form_name" id="name" minlength="2" maxlength="40" placeholder="Имя" required>
-        <span class="popup__form_name-error"></span>
+          name="name" id="name" minlength="2" maxlength="40" placeholder="Имя" required>
+        <span class="name-error"></span>
         <input class="popup__input popup__input_form_job" type="text" 
-          name="popup__form_job" id="job" minlength="2" maxlength="200" placeholder="Проффесия" required>
-        <span class="popup__form_job-error"></span>
+          name="job" id="job" minlength="2" maxlength="200" placeholder="Проффесия" required>
+        <span class="job-error"></span>
         <button class="popup__button-save" type="submit" aria-label="Save">Сохранить</button>
       </form>
     </div>
@@ -58,11 +58,11 @@
       <button class="popup__close-button" type="button" aria-label="Close"></button>
       <form class="popup__form popup__form_image" name="sight" novalidate>
         <h2 class="popup__head popup__head_image">Новое место</h2>
-        <input class="popup__input popup__input_form_place" name='popup__form_place'
+        <input class="popup__input popup__input_form_place" name='place'
           minlength="1" maxlength="30" type="text" placeholder="Название" required>
-        <span class="popup__form_place-error"></span>
-        <input class="popup__input popup__input_form_link" name='popup__form_link' id='link' type="url" placeholder="Ссылка на картинку" required>
-        <span class="popup__form_link-error"></span>
+        <span class="place-error"></span>
+        <input class="popup__input popup__input_form_link" name='link' id='link' type="url" placeholder="Ссылка на картинку" required>
+        <span class="link-error"></span>
         <button class="popup__button-save" type="submit" aria-label="Create">Создать</button>
       </form>
     </div>
