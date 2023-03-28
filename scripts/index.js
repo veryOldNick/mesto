@@ -21,7 +21,6 @@ const popupImage = popupOpenImage.querySelector('.popup__image');
 const popupImageCaption = popupOpenImage.querySelector('.popup__caption');
 const closeButtonImageOpen = popupOpenImage.querySelector('.popup__close-button');
 
-
 /* popup редактирования профиля */
 /* функция заполнения формы действующими значениями профиля */
 const fillFormFromProfile = () => {
@@ -65,7 +64,6 @@ popupProfileOpenButton.addEventListener('click', editPopupProfileButton);
 popupProfileCloseButton.addEventListener('click', () => closePopup(profilePopup));
 popupProfileSaveForm.addEventListener('submit', submitProfileForm);
 
-
 /* Добавить карточку через popup */
 const addNewCard = (evt) => {
   evt.preventDefault();  
@@ -82,7 +80,6 @@ closeButtonSight.addEventListener('click', () => closePopup(popupAddNewSight));
 // кнопка создать
 addNewSightForm.addEventListener('submit', addNewCard);
 
-
 /* Galery */
 function createCard(name, link) {
   const item = template.querySelector('.gallery__item').cloneNode(true);
@@ -90,7 +87,6 @@ function createCard(name, link) {
   const itemTitle = item.querySelector('.gallery__name');
   const like = item.querySelector('.gallery__like');
   const remove = item.querySelector('.gallery__remove');
-
 
   itemImg.src = link;
   itemImg.alt = name;
@@ -115,4 +111,3 @@ const addCardToGalery = (card) => {gallery.prepend(card)};
 initialCards.forEach(item => {addCardToGalery(createCard(item.name, item.link))});
 // закрыть попап просмотра фотографий
 closeButtonImageOpen.addEventListener('click', () => closePopup(popupOpenImage));
-
