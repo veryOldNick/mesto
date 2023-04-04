@@ -38,12 +38,14 @@ const fillProfileFromForm = () => {
 const openPopup = (popup) => { 
   popup.classList.add('popup_opened'); 
   document.addEventListener("keydown", closeEsc);
-  popup.addEventListener('click', closeClickOverlay);}
+  popup.addEventListener('click', closeClickOverlay);
+}
+
 /* закрыть popup */
 const closePopup = (popup) => { 
   popup.classList.remove('popup_opened'); 
   document.removeEventListener("keydown", closeEsc);
-  document.removeEventListener("keydown", closeClickOverlay);}
+  popup.removeEventListener("keydown", closeClickOverlay);}
 /* закрыть popup используя Esc */
 const closeEsc = (e) => { 
   if (e.key === 'Escape') { 
