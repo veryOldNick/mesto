@@ -96,36 +96,6 @@ closeButtonSight.addEventListener('click', () => closePopup(popupAddNewSight));
 // кнопка создать
 addNewSightForm.addEventListener('submit', addNewCard);
 
-// /* Galery */
-// function createCard(name, link) {
-//   const item = template.querySelector('.gallery__item').cloneNode(true);
-//   const itemImg = item.querySelector('.gallery__pic');
-//   const itemTitle = item.querySelector('.gallery__name');
-//   const like = item.querySelector('.gallery__like');
-//   const remove = item.querySelector('.gallery__remove');
-
-//   itemImg.src = link;
-//   itemImg.alt = name;
-//   itemTitle.textContent = name;
-
-//   const openImage = () => {
-//     openPopup(popupOpenImage);
-//     popupImage.src = link;
-//     popupImage.alt = name;
-//     popupImageCaption.textContent = name;
-//   };
-
-//   like.addEventListener('click', () => {like.classList.toggle('gallery__like_on');});
-//   remove.addEventListener('click', (evt) => {evt.target.closest('.gallery__item').remove();});
-//   itemImg.addEventListener('click', openImage);
-//   return item;
-// };
-
-// const addCardToGalery = (card) => {gallery.prepend(card)};
-
-// 
-// initialCards.forEach(item => {addCardToGalery(createCard(item.name, item.link))});
-
 const openImage = (name, link) => {
   openPopup(popupOpenImage);
   popupImage.src = link;
