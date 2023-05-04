@@ -6,11 +6,12 @@ export default class FormValidator {
     this._buttonElement = this._formElement.querySelector(this._options.submitButtonSelector);
   }
   
-  enableValidation() {this._setEventListeners()};
+  enableValidation() {
+    this._toggleButtonState();
+    this._setEventListeners()};
 
   /*Функция перебирает инпуты, вызывает обработчики */
-  _setEventListeners() {
-    this._toggleButtonState();
+  _setEventListeners() {    
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement);

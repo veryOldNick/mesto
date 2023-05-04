@@ -13,20 +13,20 @@ export default class Card {
 
   _createCard() {
     this._card = this._getTemplate();
+    this._itemImg = this._card.querySelector('.gallery__pic');
     this._card.querySelector('.gallery__name').textContent = this._name;
-    this._card.querySelector('.gallery__pic').setAttribute('src', this._link);
-    this._card.querySelector('.gallery__pic').setAttribute('alt', this._name);
+    this._itemImg.setAttribute('src', this._link);
+    this._itemImg.setAttribute('alt', this._name);
     return this._card;
   };
 
   _setEventListeners() {
     const like =  this._card.querySelector('.gallery__like');
     const remove = this._card.querySelector('.gallery__remove');
-    const itemImg = this._card.querySelector('.gallery__pic');
-    
+        
     like.addEventListener('click', (evt) => {evt.target.classList.toggle('gallery__like_on');});
     remove.addEventListener('click', () => {this._card.remove();});
-    itemImg.addEventListener('click', () => {
+    this._itemImg.addEventListener('click', () => {
       this._openImage(this._name, this._link)});
   };
 
