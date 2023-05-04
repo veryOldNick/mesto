@@ -1,3 +1,18 @@
+// импорт
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+import {initialCards} from "./initialCards.js";
+
+// селекторы для валидации
+const options = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button-save',
+  inactiveButtonClass: 'popup__button_save_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_visible'
+  }
+
 const profilePopup = document.querySelector('#popup__profile');
 const popupProfileOpenButton = document.querySelector('.profile__edit');
 const popupProfileCloseButton = profilePopup.querySelector('.popup__close-button');
@@ -14,21 +29,21 @@ const closeButtonSight = popupAddNewSight.querySelector('.popup__close-button');
 const placeInput = popupAddNewSight.querySelector(".popup__input_form_place");
 const linkInput = popupAddNewSight.querySelector(".popup__input_form_link");
 
-const template = document.querySelector('#item-template').content;
+// const template = document.querySelector('#item-template').content;
 const gallery = document.querySelector('.gallery__list');
 const popupOpenImage = document.querySelector('#popup__img');
 const popupImage = popupOpenImage.querySelector('.popup__image');
 const popupImageCaption = popupOpenImage.querySelector('.popup__caption');
 const closeButtonImageOpen = popupOpenImage.querySelector('.popup__close-button');
 
-/* popup редактирования профиля */
-/* функция заполнения формы действующими значениями профиля */
+// /* popup редактирования профиля */
+// /* функция заполнения формы действующими значениями профиля */
 const fillFormFromProfile = () => {
   userName.value = userInputTitle.textContent;
   jobType.value = jobInputSubtitle.textContent;
 }
 
-/* функция заполнения профиля данными из формы */
+// /* функция заполнения профиля данными из формы */
 const fillProfileFromForm = () => {
   userInputTitle.textContent = userName.value;
   jobInputSubtitle.textContent = jobType.value;
@@ -69,8 +84,7 @@ popupProfileSaveForm.addEventListener('submit', submitProfileForm);
 /* Добавить карточку через popup */
 const addNewCard = (evt) => {
   evt.preventDefault();  
-  const card = createCard(placeInput.value, linkInput.value);
-  addCardToGalery(card);
+  const card = addCardToGalery(placeInput.value, linkInput.value);
   closePopup(popupAddNewSight);
   addNewSightForm.reset();
 };
@@ -82,34 +96,29 @@ closeButtonSight.addEventListener('click', () => closePopup(popupAddNewSight));
 // кнопка создать
 addNewSightForm.addEventListener('submit', addNewCard);
 
-/* Galery */
-function createCard(name, link) {
-  const item = template.querySelector('.gallery__item').cloneNode(true);
-  const itemImg = item.querySelector('.gallery__pic');
-  const itemTitle = item.querySelector('.gallery__name');
-  const like = item.querySelector('.gallery__like');
-  const remove = item.querySelector('.gallery__remove');
-
-  itemImg.src = link;
-  itemImg.alt = name;
-  itemTitle.textContent = name;
-
-  const openImage = () => {
-    openPopup(popupOpenImage);
-    popupImage.src = link;
-    popupImage.alt = name;
-    popupImageCaption.textContent = name;
-  };
-
-  like.addEventListener('click', () => {like.classList.toggle('gallery__like_on');});
-  remove.addEventListener('click', (evt) => {evt.target.closest('.gallery__item').remove();});
-  itemImg.addEventListener('click', openImage);
-  return item;
+const openImage = (name, link) => {
+  openPopup(popupOpenImage);
+  popupImage.src = link;
+  popupImage.alt = name;
+  popupImageCaption.textContent = name;
 };
 
-const addCardToGalery = (card) => {gallery.prepend(card)};
+const addCardToGalery = (data) => {
+  const newCard = new Card(data, openImage, '#item-template');
+  gallery.prepend(newCard.renderCard());
+};
 
 // заполнить галерею
-initialCards.forEach(item => {addCardToGalery(createCard(item.name, item.link))});
+initialCards.forEach((item) => {addCardToGalery(item)});
+
 // закрыть попап просмотра фотографий
 closeButtonImageOpen.addEventListener('click', () => closePopup(popupOpenImage));
+
+
+// Валидация вводимых данных
+const popupFormElementEdit = new FormValidator(options, popupProfileSaveForm);
+popupFormElementEdit.enableValidation();
+
+
+const popupFormElementAdd = new FormValidator(options, popupAddNewSight);
+popupFormElementAdd.enableValidation();
