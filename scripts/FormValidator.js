@@ -33,7 +33,6 @@ export default class FormValidator {
     // Функция выводит сообщение об ошибке
   _showInputError(inputElement) {
     const errorElement = this._formElement.querySelector(`.${inputElement.name}-error`);
-  
     inputElement.classList.add(this._options.inputErrorClass);
     errorElement.textContent = inputElement.validationMessage;
     errorElement.classList.add(this._options.errorClass);
