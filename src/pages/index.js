@@ -1,12 +1,12 @@
 // импорты
-import Card from './Card.js';
-import FormValidator from './FormValidator.js';
-import {initialCards} from "./initialCards.js";
-import PopupWithImage from './PopupWithImage.js';
-import PopupWithForm from './PopupWithForm.js';
-import UserInfo from './UserInfo.js';
-import Section from './Section.js';
-import "../pages/index.css"
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
+import {initialCards} from "../components/initialCards.js";
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
+import Section from '../components/Section.js';
+import "./index.css"
 
 // селекторы для валидации
 const options = {
@@ -68,10 +68,10 @@ galleryList.renderItems();
 const user = new UserInfo({userName: userInputTitle,  userJob: jobInputSubtitle,});
 
 //ф-ция открытия модального окна редактирования профиля
-function popupEditProfile() {
-  const userObject = user.getUserInfo();
-  userName.value = userObject.name;
-  jobType.value = userObject.job;
+function openPopupEditProfile() {
+  const userData = user.getUserInfo();
+  userName.value = userData.name;
+  jobType.value = userData.job;
   popupProfileEdit.open();
 };
 
@@ -84,5 +84,5 @@ function handleProfileFormSubmit({name, job}) {
 const popupProfileEdit  = new PopupWithForm ('#popup__profile', handleProfileFormSubmit);
 popupProfileEdit.setEventListeners();
 
-popupProfileOpenButton.addEventListener('click', popupEditProfile);
+popupProfileOpenButton.addEventListener('click', openPopupEditProfile);
 popupProfileSaveForm.addEventListener('click', handleProfileFormSubmit);
