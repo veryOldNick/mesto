@@ -35,4 +35,9 @@ export default class Card {
     this._setEventListeners();
     return this._card;
   };
+
+  deleteCard() {
+    this._card.remove();
+    this._card = null;
+  };
 };

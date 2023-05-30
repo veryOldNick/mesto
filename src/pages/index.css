@@ -30,6 +30,9 @@
 @import url(../blocks/gallery/__like/_on/gallery__like_on.css);
 @import url(../blocks/gallery/__discrable/gallery__discrable.css);
 @import url(../blocks/gallery/__remove/gallery__remove.css);
+@import url(../blocks/gallery/__like/gallery__like-sum.css);
+@import url(../blocks/gallery/__like/__like_container/gallery__like_container.css);
+
 
 /* footer */
 @import url(../blocks/footer/footer.css);
