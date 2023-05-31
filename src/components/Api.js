@@ -45,7 +45,6 @@ class Api {
 
   // добавление новой карточки
   postNewCard(item) {
-    console.log("post", item)
     return fetch(`${this._url}/cards`, {
       method: "POST",
       headers: this._headers,
@@ -65,7 +64,7 @@ class Api {
     }).then(this._responseStatus);
   };
 
-  delLikeCard(cardId) {
+  deleteLikeCard(cardId) {
     return fetch(`${this._url}/cards/${cardId}/likes`, {
       method: "DELETE",
       headers: this._headers,
@@ -73,7 +72,7 @@ class Api {
   };
 
   // удаление карточки
-  deleteCard(cardId) {
+  deleteItemCard(cardId) {
     return fetch(`${this._url}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,

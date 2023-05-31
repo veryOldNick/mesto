@@ -4,6 +4,8 @@ import FormValidator from '../components/FormValidator.js';
 import {initialCards} from "../components/initialCards.js";
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithDeleteCard  from '../components/PopupWithDeleteCard.js';
+
 import UserInfo from '../components/UserInfo.js';
 import Section from '../components/Section.js';
 import "./index.css"
@@ -60,14 +62,19 @@ popupWithImage.setEventListeners();
 const handleCardClick = (name, link) => {popupWithImage.open(name, link);};
 
 //cоздаем карточку  с помощью класса
+// const createCard = (item) => {
+//   return new Card (item, handleCardClick, '#item-template', handleDeleteCard);
+// };
+
 const createCard = (item) => {
-  return new Card (item, handleCardClick, '#item-template').renderCard();
+  return new Card (item, handleCardClick, '#item-template', handleDeleteCard, userId, handleLikeCard);
 };
 
 //функция появления карточки
 const addCardToGalery = (item) => {
-  const card = createCard(item, handleCardClick, '#item-template');
-  galleryList.addItem(card);
+  const card = createCard(item,);
+  
+  galleryList.addItem(card.renderCard());
 }
 
 // /* экземпляр класса PopupWithForm - попап-форма добавления карточки*/
@@ -88,8 +95,6 @@ openAddNewSightButton.addEventListener('click', () => {popupAddCard.open();});
 
 // экземпляр класса Section - заполнение галереи
 const galleryList = new Section({items:initialCards, renderer:addCardToGalery}, gallery);
-console.log("2", galleryList);
-
 
 
 
@@ -122,21 +127,28 @@ function handleProfileFormSubmit(userInfo) {
     .catch((err) => console.log(`Ошибка: ${err}`));
 };
 
-
-//-------------------------------
 // функция удаления карточки
 
-// const handleDeleteCard = (el) => {
-//   api.deleteCard(el)
-//     .then((res) => {
-//       popupOpenDeleteCard.open(res);
-//       deleteCard();
-//     })
-//     .catch((err) => console.log(`Ошибка: ${err}`))
-// }
+function handleDeleteCard(data, card) {
+  popupCardDelete.open();
+  popupCardDelete.handleSubmitAction( () => {
+    api.deleteItemCard(data._id)
+    .then(() => {
+      popupCardDelete.close();
+      card.deleteCard();     
+    })
+    .catch((err) => console.log(`Ошибка: ${err}`));
+  });  
+};
 
+function handleLikeCard() {
 
-//-----------------------------
+};
+
+// попап-форма удаления карточки
+const popupCardDelete = new PopupWithDeleteCard ('#popup__del');
+popupCardDelete.setEventListeners();
+
 
 // /* экземпляр класса PopupWithForm - попап-форма редактирования профиля*/
 const popupProfileEdit  = new PopupWithForm ('#popup__profile', handleProfileFormSubmit);

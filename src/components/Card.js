@@ -1,9 +1,15 @@
 export default class Card {
-  constructor(data, openImage, templateSelector) {
+  constructor(data, openImage, templateSelector, handleDeleteCard, userId, handleLikeCard) {
+    this.data = data;
+    this._id = data._id;
     this._link = data.link;
     this._name = data.name;
     this._templateSelector = templateSelector;
     this._openImage = openImage;
+    this._handleDeleteCard = handleDeleteCard;
+    this._ownerId = data.owner._id;
+    this._userId = userId;
+    this._handleLikeCard = handleLikeCard;
   }
   
    _getTemplate() {
@@ -23,9 +29,13 @@ export default class Card {
   _setEventListeners() {
     const like =  this._card.querySelector('.gallery__like');
     const remove = this._card.querySelector('.gallery__remove');
+    if (this._ownerId !== this._userId) {
+      remove.remove();
+    }
         
     like.addEventListener('click', (evt) => {evt.target.classList.toggle('gallery__like_on');});
-    remove.addEventListener('click', () => {this._card.remove();});
+    // remove.addEventListener('click', this.deleteCard);
+    remove.addEventListener('click', () => this._handleDeleteCard(this.data, this));
     this._itemImg.addEventListener('click', () => {
       this._openImage(this._name, this._link)});
   };
@@ -35,9 +45,6 @@ export default class Card {
     this._setEventListeners();
     return this._card;
   };
-
-  deleteCard() {
-    this._card.remove();
-    this._card = null;
-  };
+ 
+  deleteCard = () => {this._card.remove();  };
 };
