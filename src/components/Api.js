@@ -80,22 +80,16 @@ class Api {
     .then(this._responseStatus);
   };
 
-
-  // // аватар
-  // patchUserAvatar(item) {
-  //   return fetch(`${this._address}/users/me/avatar`, {
-  //     method: "PATCH",
-  //     headers: this._headers,
-  //     body: JSON.stringify({
-  //       avatar: item.link,
-  //     })
-  //   }).then(this._checkResponse);
-  // }
-
- 
-
-
-
+  // аватар
+  patchUserAvatar(item) {
+    return fetch(`${this._url}/users/me/avatar`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: item.avatar,
+      })
+    }).then(this._checkResponse);
+  };
 
 }
 

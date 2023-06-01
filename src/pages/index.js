@@ -32,6 +32,7 @@ const jobInputSubtitle = document.querySelector('.profile__describle');
 const popupAddNewSight = document.querySelector("#popup__sight");
 const openAddNewSightButton = document.querySelector('.profile__add');
 const gallery = document.querySelector('.gallery__list');
+const popupEditProfilePhoto = document.querySelector("#popup_avatar");
 
 let userId;
 
@@ -54,6 +55,9 @@ popupFormElementEdit.enableValidation();
 const popupFormElementAdd = new FormValidator(options, popupAddNewSight);
 popupFormElementAdd.enableValidation();
 
+const popupFormAvatarEdit = new FormValidator(options, popupEditProfilePhoto);
+popupFormAvatarEdit.enableValidation();
+
 // экземпляр класса PopupWithImage определяет адрес открываемого изображения и название
 const popupWithImage  = new PopupWithImage('#popup__img');
 popupWithImage.setEventListeners();
@@ -62,12 +66,8 @@ popupWithImage.setEventListeners();
 const handleCardClick = (name, link) => {popupWithImage.open(name, link);};
 
 //cоздаем карточку  с помощью класса
-// const createCard = (item) => {
-//   return new Card (item, handleCardClick, '#item-template', handleDeleteCard);
-// };
-
 const createCard = (item) => {
-  return new Card (item, handleCardClick, '#item-template', handleDeleteCard, userId, handleLikeCard);
+  return new Card (item, handleCardClick, '#item-template', handleDeleteCard, userId, handleLikeCard, handleDislikeCard);
 };
 
 //функция появления карточки
@@ -83,12 +83,16 @@ popupAddCard.setEventListeners();
 
 
 //ф-ция добавления карточки через попап-форму
-function handleFormSubmitAdd(item) {  
+function handleFormSubmitAdd(item) {
+  popupAddCard.loading(true, "Сохраниние...");
   api.postNewCard(item)
     .then((res) => {
       addCardToGalery(res);
     })
-    .catch((err) => console.log(`Ошибка: ${err}`));    
+    .catch((err) => console.log(`Ошибка: ${err}`))
+    .finally(() => {
+      popupProfileEdit.loading(false);
+    });    
 };
 
 openAddNewSightButton.addEventListener('click', () => {popupAddCard.open();});
@@ -113,21 +117,24 @@ function openPopupEditProfile() {
   popupProfileEdit.open();
 };
 
-// //ф-ция сохранить информации после редактирования
-// function handleProfileFormSubmit({name, job}) { 
-//   user.setUserInfo(name, job);
-//  };
-
 //ф-ция сохранения информации после редактирования
 function handleProfileFormSubmit(userInfo) {
+  popupProfileEdit.loading(true, "Сохраниние...");
   api.patchUserInfo(userInfo)
     .then((res) => {
       user.setUserInfo(res.name, res.about);
     })
-    .catch((err) => console.log(`Ошибка: ${err}`));
+    .catch((err) => console.log(`Ошибка: ${err}`))
+    .finally(() => {
+      popupProfileEdit.loading(false);
+    });
 };
 
 // функция удаления карточки
+
+// попап-форма удаления карточки
+const popupCardDelete = new PopupWithDeleteCard ('#popup__del');
+popupCardDelete.setEventListeners();
 
 function handleDeleteCard(data, card) {
   popupCardDelete.open();
@@ -141,14 +148,49 @@ function handleDeleteCard(data, card) {
   });  
 };
 
-function handleLikeCard() {
-
+// лайк и дизлайк
+const handleLikeCard = (card) => {    
+  api.putLikeCard(card.receiveId())
+    .then((res) => {
+      card._like.classList.toggle('gallery__like_on');
+      card.likesAmmount(res);
+    })
+    .catch((err) => { console.log(err) });
 };
 
-// попап-форма удаления карточки
-const popupCardDelete = new PopupWithDeleteCard ('#popup__del');
-popupCardDelete.setEventListeners();
+const handleDislikeCard = (card) => {  
+  api.deleteLikeCard(card.receiveId())
+    .then((res) => {
+      card._like.classList.toggle('gallery__like_on');
+      card.likesAmmount(res);
+    })
+    .catch((err) => { console.log(err) });
+  
+};
 
+// аватар
+const popupEditAvatar = new PopupWithForm("#popup_avatar", handleAvatarSubmit);
+popupEditAvatar.setEventListeners();
+
+const avatarEditButton = document.querySelector('.profile__avatar-btn');
+avatarEditButton.addEventListener("click", function () {
+  popupEditAvatar.open();
+});
+ 
+function handleAvatarSubmit(item) {
+  popupEditAvatar.loading(true, "Сохраниние...");
+  
+  api.patchUserAvatar(item)
+    .then((res) => {
+      user.setAvatarInfo(res);
+    })
+    .then(() => popupEditAvatar.close())
+    .catch((err) => console.log(err))
+    .finally(() => {
+      popupEditAvatar.loading(false);
+    });;
+    
+};
 
 // /* экземпляр класса PopupWithForm - попап-форма редактирования профиля*/
 const popupProfileEdit  = new PopupWithForm ('#popup__profile', handleProfileFormSubmit);

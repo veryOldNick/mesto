@@ -1,5 +1,5 @@
 export default class Card {
-  constructor(data, openImage, templateSelector, handleDeleteCard, userId, handleLikeCard) {
+  constructor(data, openImage, templateSelector, handleDeleteCard, userId, handleLikeCard, handleDislikeCard) {
     this.data = data;
     this._id = data._id;
     this._link = data.link;
@@ -10,6 +10,8 @@ export default class Card {
     this._ownerId = data.owner._id;
     this._userId = userId;
     this._handleLikeCard = handleLikeCard;
+    this._handleDislikeCard = handleDislikeCard;
+    this._likes = this.data.likes;
   }
   
    _getTemplate() {
@@ -23,19 +25,30 @@ export default class Card {
     this._card.querySelector('.gallery__name').textContent = this._name;
     this._itemImg.setAttribute('src', this._link);
     this._itemImg.setAttribute('alt', this._name);
+    this._renderLike();
+    
     return this._card;
   };
 
   _setEventListeners() {
     const like =  this._card.querySelector('.gallery__like');
+    this._like =  this._card.querySelector('.gallery__like');
     const remove = this._card.querySelector('.gallery__remove');
+    this._likeAmount = this._card.querySelector('.gallery__like-sum');
+        
     if (this._ownerId !== this._userId) {
       remove.remove();
     }
-        
-    like.addEventListener('click', (evt) => {evt.target.classList.toggle('gallery__like_on');});
-    // remove.addEventListener('click', this.deleteCard);
-    remove.addEventListener('click', () => this._handleDeleteCard(this.data, this));
+       
+    like.addEventListener("click", (evt) => {
+      if (like.classList.contains('gallery__like_on')) {
+         this._handleDislikeCard(this);
+       } else {
+          this._handleLikeCard(this);          
+          }
+    });
+
+  remove.addEventListener('click', () => this._handleDeleteCard(this.data, this));
     this._itemImg.addEventListener('click', () => {
       this._openImage(this._name, this._link)});
   };
@@ -46,5 +59,19 @@ export default class Card {
     return this._card;
   };
  
-  deleteCard = () => {this._card.remove();  };
+  deleteCard = () => {this._card.remove();};
+
+  _renderLike() {
+    this._likeAmount = this._card.querySelector('.gallery__like-sum');
+    this._likeAmount.textContent = this._likes.length;
+  };
+     
+  receiveId() {
+    return this._id;
+  };
+
+  likesAmmount(data) {
+    this._likeAmount.textContent = data.likes.length;
+  };
+
 };
