@@ -19,6 +19,7 @@ export default class UserInfo {
     };
 
     setAvatarInfo(avatar) {
+      // console.log(avatar);
       this._avatar.src = avatar;
     };
 

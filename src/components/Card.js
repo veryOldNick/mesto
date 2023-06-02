@@ -31,17 +31,18 @@ export default class Card {
   };
 
   _setEventListeners() {
-    const like =  this._card.querySelector('.gallery__like');
     this._like =  this._card.querySelector('.gallery__like');
     const remove = this._card.querySelector('.gallery__remove');
     this._likeAmount = this._card.querySelector('.gallery__like-sum');
+
+    this._myLikeCheck();
         
     if (this._ownerId !== this._userId) {
       remove.remove();
     }
        
-    like.addEventListener("click", (evt) => {
-      if (like.classList.contains('gallery__like_on')) {
+    this._like.addEventListener("click", (evt) => {
+      if (this._like.classList.contains('gallery__like_on')) {
          this._handleDislikeCard(this);
        } else {
           this._handleLikeCard(this);          
@@ -72,6 +73,15 @@ export default class Card {
 
   likesAmmount(data) {
     this._likeAmount.textContent = data.likes.length;
+  };
+
+  _myLikeCheck() {
+    if (
+      this._likes.filter((like) => like._id === this._userId)
+        .length > 0
+    ) {
+      this._like.classList.add("gallery__like_on");
+    }
   };
 
 };

@@ -41,6 +41,7 @@ Promise.all([api.getUserInfo(), api.getItemInfo()])
   .then(([userInfo, cards]) => {
     userId = userInfo._id;
     galleryList.renderItems(cards);
+    // console.log("userInfo", userInfo.avatar);
     user.setUserInfo(userInfo.name, userInfo.about);
     user.setAvatarInfo(userInfo.avatar);
   })
@@ -73,7 +74,7 @@ const createCard = (item) => {
 //функция появления карточки
 const addCardToGalery = (item) => {
   const card = createCard(item,);
-  
+  // console.log(card);
   galleryList.addItem(card.renderCard());
 }
 
@@ -89,6 +90,7 @@ function handleFormSubmitAdd(item) {
     .then((res) => {
       addCardToGalery(res);
     })
+    .then(() => popupAddCard.close())
     .catch((err) => console.log(`Ошибка: ${err}`))
     .finally(() => {
       popupProfileEdit.loading(false);
@@ -111,11 +113,19 @@ const user = new UserInfo({
 
 //ф-ция открытия модального окна редактирования профиля
 function openPopupEditProfile() {
+  popupProfileEdit.open();
   const userData = user.getUserInfo();
   userName.value = userData.name;
   jobType.value = userData.job;
-  popupProfileEdit.open();
+  // profileAvatar.src = userData.avatar;
 };
+
+// /* экземпляр класса PopupWithForm - попап-форма редактирования профиля*/
+const popupProfileEdit  = new PopupWithForm ('#popup__profile', handleProfileFormSubmit);
+popupProfileEdit.setEventListeners();
+
+popupProfileOpenButton.addEventListener('click', openPopupEditProfile);
+// popupProfileSaveForm.addEventListener('click', handleProfileFormSubmit);
 
 //ф-ция сохранения информации после редактирования
 function handleProfileFormSubmit(userInfo) {
@@ -124,6 +134,7 @@ function handleProfileFormSubmit(userInfo) {
     .then((res) => {
       user.setUserInfo(res.name, res.about);
     })
+    .then(() => popupProfileEdit.close())
     .catch((err) => console.log(`Ошибка: ${err}`))
     .finally(() => {
       popupProfileEdit.loading(false);
@@ -177,24 +188,16 @@ avatarEditButton.addEventListener("click", function () {
   popupEditAvatar.open();
 });
  
-function handleAvatarSubmit(item) {
+function handleAvatarSubmit(userInfo) {
   popupEditAvatar.loading(true, "Сохраниние...");
   
-  api.patchUserAvatar(item)
+  api.patchUserAvatar(userInfo)
     .then((res) => {
-      user.setAvatarInfo(res);
+      user.setAvatarInfo(res.url);
     })
     .then(() => popupEditAvatar.close())
     .catch((err) => console.log(err))
     .finally(() => {
       popupEditAvatar.loading(false);
-    });;
-    
+    });;    
 };
-
-// /* экземпляр класса PopupWithForm - попап-форма редактирования профиля*/
-const popupProfileEdit  = new PopupWithForm ('#popup__profile', handleProfileFormSubmit);
-popupProfileEdit.setEventListeners();
-
-popupProfileOpenButton.addEventListener('click', openPopupEditProfile);
-popupProfileSaveForm.addEventListener('click', handleProfileFormSubmit);
