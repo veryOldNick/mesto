@@ -22,5 +22,4 @@ export default class UserInfo {
       // console.log(avatar);
       this._avatar.src = avatar;
     };
-
 };

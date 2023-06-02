@@ -8,4 +8,4 @@ export default class Section {
 
   renderItems(cards) {
     cards.forEach((item) => {this._renderer(item);})};
-}
+};

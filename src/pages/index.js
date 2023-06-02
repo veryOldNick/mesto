@@ -1,7 +1,7 @@
 // импорты
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
-import {initialCards} from "../components/initialCards.js";
+import {initialCards} from "../utils/initialCards.js";
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithDeleteCard  from '../components/PopupWithDeleteCard.js';
@@ -47,8 +47,6 @@ Promise.all([api.getUserInfo(), api.getItemInfo()])
   })
   .catch((err) => console.log(`Ошибка: ${err}`));
 
-
-
 // Валидация вводимых данных
 const popupFormElementEdit = new FormValidator(options, popupProfileSaveForm);
 popupFormElementEdit.enableValidation();
@@ -82,7 +80,6 @@ const addCardToGalery = (item) => {
 const popupAddCard = new PopupWithForm ('#popup__sight', handleFormSubmitAdd);
 popupAddCard.setEventListeners();
 
-
 //ф-ция добавления карточки через попап-форму
 function handleFormSubmitAdd(item) {
   popupAddCard.loading(true, "Сохраниние...");
@@ -101,8 +98,6 @@ openAddNewSightButton.addEventListener('click', () => {popupAddCard.open();});
 
 // экземпляр класса Section - заполнение галереи
 const galleryList = new Section({items:initialCards, renderer:addCardToGalery}, gallery);
-
-
 
 // экземпляр класса UserInfo - отвечает за управление отображением информации о пользователе на странице
 const user = new UserInfo({
@@ -163,7 +158,7 @@ function handleDeleteCard(data, card) {
 const handleLikeCard = (card) => {    
   api.putLikeCard(card.receiveId())
     .then((res) => {
-      card._like.classList.toggle('gallery__like_on');
+      card.toggleLike();
       card.likesAmmount(res);
     })
     .catch((err) => { console.log(err) });
@@ -172,7 +167,7 @@ const handleLikeCard = (card) => {
 const handleDislikeCard = (card) => {  
   api.deleteLikeCard(card.receiveId())
     .then((res) => {
-      card._like.classList.toggle('gallery__like_on');
+      card.toggleLike();
       card.likesAmmount(res);
     })
     .catch((err) => { console.log(err) });
@@ -193,7 +188,9 @@ function handleAvatarSubmit(userInfo) {
   
   api.patchUserAvatar(userInfo)
     .then((res) => {
-      user.setAvatarInfo(res.url);
+      console.log(res);
+      user.setAvatarInfo(res.avatar);
+      // console.log(user);
     })
     .then(() => popupEditAvatar.close())
     .catch((err) => console.log(err))

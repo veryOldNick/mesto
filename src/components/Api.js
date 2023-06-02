@@ -11,7 +11,7 @@ class Api {
     }
     return Promise.reject(`Ошибка: ${res.status}`);
   };
-
+  
   // загрузка информации о пользователе
   getUserInfo() {
     return fetch(`${this._url}/users/me`, {
@@ -88,10 +88,9 @@ class Api {
       body: JSON.stringify({
         avatar: item.avatar
       })
-    }).then(this._checkResponse);
+    }).then(this._responseStatus);
   };
-
-}
+};
 
 export const api = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-66',

@@ -75,6 +75,10 @@ export default class Card {
     this._likeAmount.textContent = data.likes.length;
   };
 
+  toggleLike() {
+    this._like.classList.toggle('gallery__like_on');
+  }
+
   _myLikeCheck() {
     if (
       this._likes.filter((like) => like._id === this._userId)
@@ -83,5 +87,5 @@ export default class Card {
       this._like.classList.add("gallery__like_on");
     }
   };
-
 };
+
