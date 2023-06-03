@@ -33,9 +33,8 @@ export default class Card {
   _setEventListeners() {
     this._like =  this._card.querySelector('.gallery__like');
     const remove = this._card.querySelector('.gallery__remove');
-    this._likeAmount = this._card.querySelector('.gallery__like-sum');
 
-    this._myLikeCheck();
+    this._сheckMyLike();
         
     if (this._ownerId !== this._userId) {
       remove.remove();
@@ -71,7 +70,7 @@ export default class Card {
     return this._id;
   };
 
-  likesAmmount(data) {
+  reckonAmountLikes(data) {
     this._likeAmount.textContent = data.likes.length;
   };
 
@@ -79,7 +78,7 @@ export default class Card {
     this._like.classList.toggle('gallery__like_on');
   }
 
-  _myLikeCheck() {
+  _сheckMyLike() {
     if (
       this._likes.filter((like) => like._id === this._userId)
         .length > 0

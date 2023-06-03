@@ -10,31 +10,24 @@ import UserInfo from '../components/UserInfo.js';
 import Section from '../components/Section.js';
 import "./index.css"
 import { api } from '../components/Api.js';
-
-// селекторы для валидации
-const options = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button-save',
-  inactiveButtonClass: 'popup__button_save_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_visible'
-  }
-
-const profilePopup = document.querySelector('#popup__profile');
-const popupProfileOpenButton = document.querySelector('.profile__edit');
-const popupProfileSaveForm = profilePopup.querySelector("#profile_form");
-const userName = document.querySelector('.popup__input_form_name');
-const profileAvatar = document.querySelector('.profile__photo');
-const jobType = document.querySelector('.popup__input_form_job');
-const userInputTitle = document.querySelector('.profile__title');
-const jobInputSubtitle = document.querySelector('.profile__describle');
-const popupAddNewSight = document.querySelector("#popup__sight");
-const openAddNewSightButton = document.querySelector('.profile__add');
-const gallery = document.querySelector('.gallery__list');
-const popupEditProfilePhoto = document.querySelector("#popup_avatar");
+import {
+  options,
+  popupProfileOpenButton,
+  popupProfileSaveForm,
+  userName,
+  profileAvatar,
+  jobType,
+  userInputTitle,
+  jobInputSubtitle,
+  popupAddNewSight,
+  openAddNewSightButton,
+  gallery,
+  popupEditProfilePhoto,
+  avatarEditButton,
+} from "../utils/constants.js";
 
 let userId;
+//---------------------------------------------------------
 
 // Получение данных пользователя с сервера для заполнения страницы
 Promise.all([api.getUserInfo(), api.getItemInfo()])
@@ -46,6 +39,7 @@ Promise.all([api.getUserInfo(), api.getItemInfo()])
     user.setAvatarInfo(userInfo.avatar);
   })
   .catch((err) => console.log(`Ошибка: ${err}`));
+//---------------------------------------------------------
 
 // Валидация вводимых данных
 const popupFormElementEdit = new FormValidator(options, popupProfileSaveForm);
@@ -56,6 +50,7 @@ popupFormElementAdd.enableValidation();
 
 const popupFormAvatarEdit = new FormValidator(options, popupEditProfilePhoto);
 popupFormAvatarEdit.enableValidation();
+//---------------------------------------------------------
 
 // экземпляр класса PopupWithImage определяет адрес открываемого изображения и название
 const popupWithImage  = new PopupWithImage('#popup__img');
@@ -66,14 +61,17 @@ const handleCardClick = (name, link) => {popupWithImage.open(name, link);};
 
 //cоздаем карточку  с помощью класса
 const createCard = (item) => {
-  return new Card (item, handleCardClick, '#item-template', handleDeleteCard, userId, handleLikeCard, handleDislikeCard);
+  return new Card (
+    item, handleCardClick, '#item-template', handleDeleteCard, userId,
+    handleLikeCard, handleDislikeCard
+  ).renderCard();
 };
 
 //функция появления карточки
 const addCardToGalery = (item) => {
   const card = createCard(item,);
   // console.log(card);
-  galleryList.addItem(card.renderCard());
+  galleryList.addItem(card);
 }
 
 // /* экземпляр класса PopupWithForm - попап-форма добавления карточки*/
@@ -82,7 +80,7 @@ popupAddCard.setEventListeners();
 
 //ф-ция добавления карточки через попап-форму
 function handleFormSubmitAdd(item) {
-  popupAddCard.loading(true, "Сохраниние...");
+  popupAddCard.isLoading(true, "Сохраниние...");
   api.postNewCard(item)
     .then((res) => {
       addCardToGalery(res);
@@ -90,7 +88,7 @@ function handleFormSubmitAdd(item) {
     .then(() => popupAddCard.close())
     .catch((err) => console.log(`Ошибка: ${err}`))
     .finally(() => {
-      popupProfileEdit.loading(false);
+      popupAddCard.isLoading(false);
     });    
 };
 
@@ -124,7 +122,7 @@ popupProfileOpenButton.addEventListener('click', openPopupEditProfile);
 
 //ф-ция сохранения информации после редактирования
 function handleProfileFormSubmit(userInfo) {
-  popupProfileEdit.loading(true, "Сохраниние...");
+  popupProfileEdit.isLoading(true, "Сохраниние...");
   api.patchUserInfo(userInfo)
     .then((res) => {
       user.setUserInfo(res.name, res.about);
@@ -132,7 +130,7 @@ function handleProfileFormSubmit(userInfo) {
     .then(() => popupProfileEdit.close())
     .catch((err) => console.log(`Ошибка: ${err}`))
     .finally(() => {
-      popupProfileEdit.loading(false);
+      popupProfileEdit.isLoading(false);
     });
 };
 
@@ -159,7 +157,7 @@ const handleLikeCard = (card) => {
   api.putLikeCard(card.receiveId())
     .then((res) => {
       card.toggleLike();
-      card.likesAmmount(res);
+      card.reckonAmountLikes(res);
     })
     .catch((err) => { console.log(err) });
 };
@@ -168,7 +166,7 @@ const handleDislikeCard = (card) => {
   api.deleteLikeCard(card.receiveId())
     .then((res) => {
       card.toggleLike();
-      card.likesAmmount(res);
+      card.reckonAmountLikes(res);
     })
     .catch((err) => { console.log(err) });
   
@@ -178,13 +176,13 @@ const handleDislikeCard = (card) => {
 const popupEditAvatar = new PopupWithForm("#popup_avatar", handleAvatarSubmit);
 popupEditAvatar.setEventListeners();
 
-const avatarEditButton = document.querySelector('.profile__avatar-btn');
+
 avatarEditButton.addEventListener("click", function () {
   popupEditAvatar.open();
 });
  
 function handleAvatarSubmit(userInfo) {
-  popupEditAvatar.loading(true, "Сохраниние...");
+  popupEditAvatar.isLoading(true, "Сохраниние...");
   
   api.patchUserAvatar(userInfo)
     .then((res) => {
@@ -195,6 +193,6 @@ function handleAvatarSubmit(userInfo) {
     .then(() => popupEditAvatar.close())
     .catch((err) => console.log(err))
     .finally(() => {
-      popupEditAvatar.loading(false);
+      popupEditAvatar.isLoading(false);
     });;    
 };

@@ -8,7 +8,7 @@ export default class PopupWithForm extends Popup {
     this._form = this._popup.querySelector('.popup__form');
     this._inputList = Array.from(this._form.querySelectorAll('.popup__input'));
     this._submitButton = this._popup.querySelector(".popup__button-save");
-    this._stack = this._submitButton.textContent;
+    this._initialButtonText = this._submitButton.textContent;
   }
 
   _getInputValues() {
@@ -32,11 +32,11 @@ export default class PopupWithForm extends Popup {
     });
   };
 
-  loading (test, loadingText) {    
+  isLoading (test, loadingText) {    
     if (test) {
       this._submitButton.textContent = loadingText;
     } else {
-      this._submitButton.textContent = this._stack;
+      this._submitButton.textContent = this._initialButtonText;
     }
   };
 };

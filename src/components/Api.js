@@ -5,7 +5,7 @@ class Api {
   }
 
   // проверка запросов
-  _responseStatus(res) {
+  _checkResponse(res) {
     if (res.ok) {
       return res.json();
     }
@@ -18,7 +18,7 @@ class Api {
       method: "GET",
       headers: this._headers,
     })
-    .then(this._responseStatus);
+    .then(this._checkResponse);
   };
 
   // загрузка карточек
@@ -27,7 +27,7 @@ class Api {
       method: "GET",
       headers: this._headers,
     })
-    .then(this._responseStatus);
+    .then(this._checkResponse);
   };
 
   // замена данных пользователя
@@ -40,7 +40,7 @@ class Api {
         about: userInfo.job,
       })
     })
-    .then(this._responseStatus);
+    .then(this._checkResponse);
   };
 
   // добавление новой карточки
@@ -53,7 +53,7 @@ class Api {
         name: item.name,
       })
     })
-    .then(this._responseStatus);
+    .then(this._checkResponse);
   };
 
    // работа с лайками
@@ -61,14 +61,14 @@ class Api {
     return fetch(`${this._url}/cards/${cardId}/likes`, {
       method: "PUT",
       headers: this._headers,
-    }).then(this._responseStatus);
+    }).then(this._checkResponse);
   };
 
   deleteLikeCard(cardId) {
     return fetch(`${this._url}/cards/${cardId}/likes`, {
       method: "DELETE",
       headers: this._headers,
-    }).then(this._responseStatus);
+    }).then(this._checkResponse);
   };
 
   // удаление карточки
@@ -77,7 +77,7 @@ class Api {
       method: "DELETE",
       headers: this._headers,
     })
-    .then(this._responseStatus);
+    .then(this._checkResponse);
   };
 
   // аватар
@@ -88,7 +88,7 @@ class Api {
       body: JSON.stringify({
         avatar: item.avatar
       })
-    }).then(this._responseStatus);
+    }).then(this._checkResponse);
   };
 };
 

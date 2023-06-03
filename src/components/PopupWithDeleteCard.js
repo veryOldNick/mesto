@@ -6,8 +6,6 @@ export default class PopupWithDeleteCard extends Popup {
     this._confirmButton = this._popup.querySelector(".popup__button-save");
   }
 
-  open() {super.open();};
-
   handleSubmitAction(action) {this._handleConfirm = action;};
 
   setEventListeners() {
