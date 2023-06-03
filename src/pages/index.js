@@ -62,8 +62,13 @@ const handleCardClick = (name, link) => {popupWithImage.open(name, link);};
 //cоздаем карточку  с помощью класса
 const createCard = (item) => {
   return new Card (
-    item, handleCardClick, '#item-template', handleDeleteCard, userId,
-    handleLikeCard, handleDislikeCard
+    item,
+    handleCardClick,
+    '#item-template',
+    handleDeleteCard,
+    userId,
+    handleLikeCard,
+    handleDislikeCard,
   ).renderCard();
 };
 
